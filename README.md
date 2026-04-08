@@ -1,62 +1,79 @@
-# 🔐 Diffie-Hellman Secure Communication Simulator
+# Diffie-Hellman Secure Communication Simulator
 
-An interactive web-based simulator demonstrating how secure communication is established using Diffie-Hellman — and how it can be compromised using a Man-in-the-Middle (MITM) attack.
-
----
-
-##  Features
-
-*  Step-by-step Diffie-Hellman key exchange visualization
-*  Real-time MITM attack simulation (Eve intercepts & modifies messages)
-*  Authenticated Diffie-Hellman to prevent impersonation attacks
-*  Interactive UI with dynamic communication flow
-*  Built-in learning panel explaining cryptographic concepts
+A web-based simulation built using Python (Flask) that demonstrates how secure communication is established using the Diffie-Hellman key exchange protocol, along with a Man-in-the-Middle (MITM) attack and its prevention using authentication.
 
 ---
 
-## Concepts Covered
+## Overview
+
+This project provides a step-by-step visualization of the Diffie-Hellman key exchange process between two parties. It also demonstrates how the absence of authentication allows an attacker to intercept and modify communication, and how authenticated key exchange prevents such attacks.
+
+---
+
+## Features
+
+* Step-by-step simulation of Diffie-Hellman key exchange
+* Visualization of shared key generation
+* Man-in-the-Middle (MITM) attack simulation with message interception and modification
+* Authenticated key exchange to prevent impersonation
+* Interactive interface with dynamic communication flow
+
+---
+
+## Concepts Demonstrated
 
 * Diffie-Hellman Key Exchange
 * Discrete Logarithm Problem
 * Man-in-the-Middle (MITM) Attack
-* Authentication & Digital Signatures
+* Authentication in secure communication
 
 ---
 
-##  Tech Stack
+## Tech Stack
 
 * Python (Flask)
 * HTML, CSS
-* Cryptography Fundamentals
+* Cryptography fundamentals
 
 ---
 
-##  How to Run
+## Project Structure
 
-```bash
+```id="3n0r4u"
+diffie-hellman-simulator/
+│  app.py
+│  README.md
+│
+├── templates/
+│     └── index.html
+│
+└── static/
+```
+
+---
+
+## Running the Application
+
+Install dependencies:
+
+```id="zqk7pd"
 pip install flask
+```
+
+Run the application:
+
+```id="a5k1xy"
 python app.py
 ```
 
 Open in browser:
+
+```id="u3q9lm"
 http://127.0.0.1:5000
+```
 
 ---
 
-##  Learning Outcome
+## Learning Outcome
 
-This project demonstrates how secure communication works and highlights the importance of authentication in preventing cyber attacks.
-
----
-
-##  Future Improvements
-
-* Add encryption visualization
-* Auto-play simulation mode
-* Network graph animation
-
----
-
-## 👨‍💻 Author
-
-Siri Bharadwaj Raghunath
+This project helps in understanding how secure key exchange works over insecure channels, the vulnerabilities introduced by lack of authentication, and the role of authentication in ensuring secure communication.
