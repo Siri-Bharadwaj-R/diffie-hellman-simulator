@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>🔐 Diffie-Hellman Secure Communication Simulator</title>
+
+<style>
+body {
+    background: #0b0f1a;
+    color: white;
+    text-align: center;
+    font-family: Arial;
+}
+
+/* Inputs */
+input, select {
+    background: #111;
+    color: white;
+    border: 1px solid #00d4ff;
+    padding: 8px;
+    margin: 5px;
+    border-radius: 6px;
+}
+
+/* Buttons */
+button {
+    background: #111;
+    color: #00d4ff;
+    border: 1px solid #00d4ff;
+    padding: 8px 12px;
+    margin: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #00d4ff;
+    color: black;
+    box-shadow: 0 0 10px #00d4ff;
+}
+
+/* Boxes */
+.box {
+    border: 2px solid #00d4ff;
+    padding: 15px;
+    margin: 10px;
+    display: inline-block;
+    width: 220px;
+    border-radius: 10px;
+}
+
+/* 🔥 EVE GLOW BACK */
+.eve {
+    border-color: red;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    50% { box-shadow: 0 0 20px red; }
+}
+
+/* Arrow */
+.arrow {
+    font-size: 26px;
+    margin: 0 10px;
+}
+
+/* Typing FIX */
+.typing {
+    border-right: 2px solid #00ffcc;
+    display: inline-block;
+    padding-right: 5px;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+.highlight { color:#00ffcc; }
+
+/* Learn Panel */
+#learnPanel {
+    position: fixed;
+    right: -400px;
+    top: 0;
+    width: 350px;
+    height: 100%;
+    background: #111;
+    padding: 20px;
+    overflow: auto;
+    transition: 0.4s;
+    border-left: 2px solid #00d4ff;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🔐 Diffie-Hellman Secure Communication Simulator</h1>
+
+<form method="POST">
+<select name="mode">
+<option value="secure">Secure</option>
+<option value="attack">MITM Attack</option>
+<option value="auth">Authenticated</option>
+</select>
+
+<input name="message" placeholder="Enter message">
+<input name="eve_message" placeholder="Eve modifies">
+
+<br>
+<button name="start">Start</button>
+<button name="next">Next</button>
+<button type="button" onclick="toggleLearn()">Learn</button>
+</form>
+
+<hr>
+
+{% if not data.started %}
+<p style="color:#00ffcc;">👉 Click Start to begin simulation</p>
+{% endif %}
+
+{% if data.started %}
+
+<h2>Step {{data.step}}</h2>
+
+<div style="width:80%;margin:auto;background:#333;border-radius:10px;">
+<div style="width:{{(data.step/6)*100}}%;background:#00d4ff;padding:5px;"></div>
+</div>
+
+<p class="typing">{{ data.status[data.step-1] }}</p>
+
+<p>p={{data.p}}, g={{data.g}}</p>
+
+<div>
+
+<div class="box">
+<h3>Alice</h3>
+<p>A={{data.A}}</p>
+{% if data.step>=4 %}
+<p class="highlight">Key={{data.alice_key}}</p>
+{% endif %}
+</div>
+
+<span class="arrow">➡️</span>
+
+{% if data.eve_active %}
+<div class="box eve">
+<h3>😈 Eve</h3>
+<p>E1={{data.E1}}</p>
+<p>E2={{data.E2}}</p>
+</div>
+<span class="arrow">➡️</span>
+{% endif %}
+
+<div class="box">
+<h3>Bob</h3>
+<p>B={{data.B}}</p>
+{% if data.step>=4 %}
+<p class="highlight">Key={{data.bob_key}}</p>
+{% endif %}
+</div>
+
+</div>
+
+{% if data.step>=4 %}
+{% if data.alice_key == data.bob_key %}
+<p style="color:lightgreen;">🔑 Keys Match ✔</p>
+{% else %}
+<p style="color:red;">⚠ Keys DO NOT Match ❌</p>
+{% endif %}
+{% endif %}
+
+{% if data.step>=5 %}
+<h3>📩 Message</h3>
+<p>Alice: {{data.original}}</p>
+
+{% if data.mode=="attack" %}
+<p style="color:red;">Eve modified → {{data.modified}}</p>
+{% endif %}
+
+<p>Bob receives: {{data.final}}</p>
+{% endif %}
+
+{% if data.step>=6 %}
+<h2>
+{% if data.mode=="attack" %}
+❌ SYSTEM COMPROMISED
+{% elif data.mode=="auth" %}
+🛡️ AUTHENTICATED & SECURE
+{% else %}
+✅ SECURE CHANNEL ESTABLISHED
+{% endif %}
+</h2>
+{% endif %}
+
+{% endif %}
+
+<!-- ✅ FINAL DEEP INFO (ENHANCED BUT SAME STYLE) -->
+<div id="learnPanel">
+
+{% if data.started %}
+
+<h2>📚 Deep Info</h2>
+
+{% if data.mode=="secure" %}
+<p><b>Secure Communication:</b></p>
+<p>Diffie-Hellman enables two users to establish a shared secret over an insecure channel.</p>
+
+<p><b>Core Idea:</b></p>
+<p>Instead of sending the key, both compute it independently.</p>
+
+<p><b>Formula:</b></p>
+<p>K = g<sup>ab</sup> mod p</p>
+
+<p><b>Why Secure?</b></p>
+<ul>
+<li>Attacker sees A = g^a and B = g^b</li>
+<li>Cannot compute a or b</li>
+<li>Requires solving Discrete Log → very hard</li>
+</ul>
+
+<p><b>Security Achieved:</b></p>
+<li>Confidentiality ✔</li>
+<li>Integrity (partial) ✔</li>
+
+{% elif data.mode=="attack" %}
+<p><b>MITM Attack:</b></p>
+<p>An attacker secretly intercepts communication between two parties.</p>
+
+<p><b>How it works:</b></p>
+<ul>
+<li>Eve intercepts A and B</li>
+<li>Sends fake values (E1, E2)</li>
+<li>Creates two separate keys</li>
+</ul>
+
+<p><b>Why possible?</b></p>
+<ul>
+<li>No authentication mechanism</li>
+<li>Users trust received public values blindly</li>
+</ul>
+
+<p><b>Impact:</b></p>
+<ul>
+<li>Confidentiality ❌ (Eve reads data)</li>
+<li>Integrity ❌ (Eve modifies data)</li>
+<li>Trust ❌ (communication compromised)</li>
+</ul>
+
+{% elif data.mode=="auth" %}
+<p><b>Authenticated Diffie-Hellman:</b></p>
+<p>Enhances DH by verifying identities of participants.</p>
+
+<p><b>How it works:</b></p>
+<ul>
+<li>Public keys are digitally signed</li>
+<li>Receiver verifies using sender’s public key</li>
+</ul>
+
+<p><b>Algorithm concept:</b></p>
+<p>Signature = Sign(A, Private Key)</p>
+<p>Verify(Signature, Public Key) ✔</p>
+
+<p><b>Why secure?</b></p>
+<ul>
+<li>Eve cannot forge valid signatures</li>
+<li>Fake keys are rejected</li>
+</ul>
+
+<p><b>Security Achieved:</b></p>
+<li>Confidentiality ✔</li>
+<li>Integrity ✔</li>
+<li>Authentication ✔</li>
+
+{% endif %}
+
+{% else %}
+<p style="color:#00ffcc;">👉 Start simulation to learn concepts</p>
+{% endif %}
+
+<button onclick="toggleLearn()">Close</button>
+</div>
+
+<script>
+function toggleLearn(){
+let p=document.getElementById("learnPanel");
+p.style.right = (p.style.right=="0px")?"-400px":"0px";
+}
+</script>
+
+</body>
+</html>
