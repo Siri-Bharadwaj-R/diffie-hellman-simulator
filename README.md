@@ -4,17 +4,17 @@ An interactive web-based simulator demonstrating how secure communication is est
 
 ---
 
-## 🚀 Features
+##  Features
 
-* 🔐 Step-by-step Diffie-Hellman key exchange visualization
-* 😈 Real-time MITM attack simulation (Eve intercepts & modifies messages)
-* 🛡️ Authenticated Diffie-Hellman to prevent impersonation attacks
-* 📡 Interactive UI with dynamic communication flow
-* 📚 Built-in learning panel explaining cryptographic concepts
+*  Step-by-step Diffie-Hellman key exchange visualization
+*  Real-time MITM attack simulation (Eve intercepts & modifies messages)
+*  Authenticated Diffie-Hellman to prevent impersonation attacks
+*  Interactive UI with dynamic communication flow
+*  Built-in learning panel explaining cryptographic concepts
 
 ---
 
-## 🧠 Concepts Covered
+## Concepts Covered
 
 * Diffie-Hellman Key Exchange
 * Discrete Logarithm Problem
@@ -23,7 +23,7 @@ An interactive web-based simulator demonstrating how secure communication is est
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 * Python (Flask)
 * HTML, CSS
@@ -31,7 +31,7 @@ An interactive web-based simulator demonstrating how secure communication is est
 
 ---
 
-## ▶️ How to Run
+##  How to Run
 
 ```bash
 pip install flask
@@ -43,13 +43,13 @@ http://127.0.0.1:5000
 
 ---
 
-## 🎯 Learning Outcome
+##  Learning Outcome
 
 This project demonstrates how secure communication works and highlights the importance of authentication in preventing cyber attacks.
 
 ---
 
-## 📌 Future Improvements
+##  Future Improvements
 
 * Add encryption visualization
 * Auto-play simulation mode
